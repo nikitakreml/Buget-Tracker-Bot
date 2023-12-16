@@ -29,6 +29,16 @@ async def add_income(tg_id, expense_amount):
         await db.execute("UPDATE Users SET amount_left = amount_left + ? WHERE tg_id = ?", (expense_amount, tg_id))
         await db.commit()
 
+async def display_amount_left(tg_id):
+    async with aiosqlite.connect("expenses.db") as db:
+        cursor = await db.execute("SELECT amount_left FROM Users WHERE tg_id = ?", (tg_id,))
+        row = await cursor.fetchone()
+        if row:
+            amount_left = row[0]
+            return str(amount_left)
+        else:
+            return "невозможно отобразить баланс"
+
 async def add_expense(tg_id, expense_date, expense_amount, category):
     async with aiosqlite.connect("expenses.db") as db:
         await db.execute("UPDATE Users SET amount_left = amount_left - ? WHERE tg_id = ?", (expense_amount, tg_id))

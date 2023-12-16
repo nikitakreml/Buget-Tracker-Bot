@@ -25,6 +25,7 @@ def start_keyboard():
         KeyboardButton(text="➖Добавить расход"),
         KeyboardButton(text="➕Добавить доход"),
         KeyboardButton(text="📊Посмотреть расходы за временной период"),
+        KeyboardButton(text='↩️Отмена'),
     ]
     return apply_keyboard(builder=start_builder, buttons=buttons)
 
